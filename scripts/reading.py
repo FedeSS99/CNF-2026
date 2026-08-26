@@ -19,17 +19,16 @@ class CMNReader:
 
         return all_files
 
-    @staticmethod
-    def __get_station_name(station_name : str) -> str:
-        clean_station_name = sub(r"\d+", "", station_name)
-        return clean_station_name
+    def __get_date_and_station_name(self, cmn_path_name : str) -> tuple[str, str]:
+        clean_station_name = cmn_path_name.split("-")[0][:-3]
+        date = "-".join(cmn_path_name.split(".")[0].split("-")[1:])
+
+        return date, clean_station_name
     
-    @staticmethod
-    def __read_cmn_file(cmn_file_path : str) -> tuple[str, pl.DataFrame]:
+    def __read_cmn_file(self, cmn_file_path : str) -> tuple[str, pl.DataFrame]:
         cmn_path = Path(cmn_file_path)
-        station_name = sub(r"\d+", "", cmn_path.name.split("-")[0])
-        date_text = "-".join(cmn_path.name.split(".")[0].split("-")[1:])
-        
+        date_text, station_name = self.__get_date_and_station_name(cmn_path.name)
+
         cmn_text = cmn_path.read_text(encoding = "utf-8").splitlines()
         table_text = "\n".join(cmn_text[5:])
 
