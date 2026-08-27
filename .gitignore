@@ -1,4 +1,5 @@
 /.vscode
 /data
+/output
 /scripts/__pycache__
 *.ipynb
