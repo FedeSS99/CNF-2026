@@ -2,9 +2,8 @@ from .reading import CMNReader
 from .preprocessing import TECProcesser
 
 from polars import DataFrame
-from numpy import ndarray
 
-def get_dtec_data_from_stations(cmn_global_path : str, min_elev : float = 30, window_size : int =  240, poly_order : int = 5) -> dict[str, dict[int, list[ndarray]]]:
+def get_dtec_data_from_stations(cmn_global_path : str, min_elev : float = 30, window_size : int =  240, poly_order : int = 5) -> dict[str, dict[int, list[DataFrame]]]:
     # extract all data from different stations (still not grouped by PRN satellite number)
     stations_data = CMNReader(cmn_global_path).read_all()
 

@@ -46,7 +46,7 @@ class TECProcesser:
         return PRN_data_time_cut
 
 
-    def __preprocess_data(self, df : pl.DataFrame, min_elev : float) -> dict[int, list[np.ndarray]]:
+    def __preprocess_data(self, df : pl.DataFrame, min_elev : float) -> dict[int, list[pl.DataFrame]]:
         df_filtered = df.filter(pl.col("Ele") >= min_elev)
         unique_PRNs = df_filtered["PRN"].unique().to_list()
 
@@ -64,5 +64,5 @@ class TECProcesser:
         return PRN_cut_data
 
 
-    def process_data(self, df : pl.DataFrame) -> dict[int, list[np.ndarray]]:
+    def process_data(self, df : pl.DataFrame) -> dict[int, list[pl.DataFrame]]:
         return self.__preprocess_data(df, self.__min_elev)
