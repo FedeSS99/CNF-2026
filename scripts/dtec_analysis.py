@@ -11,9 +11,6 @@ class DTECAnalysis:
         self.__data_path = data_path
         self.__k_max = k_max
 
-        self.__stress_thresholds = (0.2, 0.1, 0.05, 0.01)
-
-
     def __read_station_PRN_segments(self, data_file_path : str) -> pl.DataFrame:
         station_name = data_file_path.split("/")[-1].split("_")[0]
         PRN = int(data_file_path.split("/")[-1].split("_")[1][3:5])
@@ -87,7 +84,7 @@ class DTECAnalysis:
             init = "classical_mds",
             max_iter = 1000,
             eps = 1e-6,
-            dissimilarity = "precomputed",
+            metric = "precomputed",
             normalized_stress = True
         )
 
@@ -118,4 +115,4 @@ class DTECAnalysis:
 
             mds_results[dims] = (mds_embeddings, stress)
 
-        return mds_results 
+        return mds_results
